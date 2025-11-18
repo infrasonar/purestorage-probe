@@ -12,29 +12,29 @@ class CheckPgroups(Check):
     @staticmethod
     async def run(asset: Asset, local_config: dict, config: dict) -> dict:
 
-        url = '/protection-groups'
-        data = await query(asset, local_config, config, url)
+        req = 'get_protection_groups'
+        data = await query(asset, local_config, config, req)
 
         return {
             'pgroups': [{
-                'name': d['name'],
-                'id': d['id'],
-                'destroyed': d.get('destroyed'),  # bool
-                'host_count': d.get('host_count'),  # int
-                'host_group_count': d.get('host_group_count'),  # int
-                'is_local': d.get('is_local'),  # bool
-                'pod': d.get('pod', {}).get('name'),  # str
-                'retention_lock': d.get('retention_lock'),
-                'source': d.get('source', {}).get('name'),  # str
-                'target_count': d.get('target_count'),  # int
-                'time_remaining': d.get('time_remaining'),  # int
-                'volume_count': d.get('volume_count'),  # int
+                'name': d.name,
+                'id': d.id,
+                'destroyed': d.destroyed,  # bool
+                'host_count': d.host_count,  # int
+                'host_group_count': d.host_group_count,  # int
+                'is_local': d.is_local,  # bool
+                'pod': getattr(d.pod, 'name', None),  # str
+                'retention_lock': d.retention_lock,
+                'source': getattr(d.source, 'name', None),  # str
+                'target_count': d.target_count,  # int
+                'time_remaining': d.time_remaining,  # int
+                'volume_count': d.volume_count,  # int
 
                 # SKIPPED
-                # 'eradication_config': d.get('eradication_config'),  # obj
-                # 'replication_schedule': d.get('replication_schedule'),  # obj
-                # 'snapshot_schedule': d.get('snapshot_schedule'),  # obj
-                # 'source_retention': d.get('source_retention'),  # obj
-                # 'target_retention': d.get('target_retention'),  # obj
+                # 'eradication_config': d.eradication_config,  # obj
+                # 'replication_schedule': d.replication_schedule,  # obj
+                # 'snapshot_schedule': d.snapshot_schedule,  # obj
+                # 'source_retention': d.source_retention,  # obj
+                # 'target_retention': d.target_retention,  # obj
             } for d in data]
         }

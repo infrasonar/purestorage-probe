@@ -12,16 +12,16 @@ class CheckPorts(Check):
     @staticmethod
     async def run(asset: Asset, local_config: dict, config: dict) -> dict:
 
-        url = '/ports'
-        data = await query(asset, local_config, config, url)
+        req = 'get_ports'
+        data = await query(asset, local_config, config, req)
 
         return {
             'ports': [{
-                'name': d['name'],
-                'iqn': d.get('iqn'),
-                'nqn': d.get('nqn'),
-                'portal': d.get('portal'),
-                'wwn': d.get('wwn'),
-                'failover': d.get('failover'),
+                'name': d.name,
+                'iqn': d.iqn,
+                'nqn': d.nqn,
+                'portal': d.portal,
+                'wwn': d.wwn,
+                'failover': d.failover,
             } for d in data]
         }

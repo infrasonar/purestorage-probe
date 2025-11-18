@@ -15,19 +15,21 @@ class CheckInterfaces(Check):
     @staticmethod
     async def run(asset: Asset, local_config: dict, config: dict) -> dict:
 
-        url = '/network-interfaces'
-        data = await query(asset, local_config, config, url)
+        req = 'get_network_interfaces'
+        data = await query(asset, local_config, config, req)
 
         return {
             'interfaces': [{
-                'name': d['name'],
-                'enabled': d.get('enabled'),  # bool
-                'interface_type': d.get('interface_type'),
-                'services': opt_sorted(d.get('services')),  # liststr
-                'speed': d.get('speed'),  # int
-                'fc': d.get('fc', {}).get('name'),
-
-                # TODO
-                # 'eth': d.get('eth'),  # object -> !!!
+                'name': d.name,
+                'enabled': d.enabled,  # bool
+                'interface_type': d.interface_type,
+                'services': opt_sorted(d.services),  # liststr
+                'speed': d.speed,  # int
+                'fc': getattr(d.fc, 'name', None),
+                'address': getattr(d.eth, 'address', None),
+                'gateway': getattr(d.eth, 'gateway', None),
+                'mac_address': getattr(d.eth, 'mac_address', None),
+                'mtu': getattr(d.eth, 'mtu', None),  # int
+                'netmask': getattr(d.eth, 'netmask', None),
             } for d in data]
         }

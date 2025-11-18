@@ -1,6 +1,7 @@
 from libprobe.asset import Asset
 from libprobe.check import Check
 from ..query import query
+from ..utils import opt_int
 
 # https://code.purestorage.com/py-pure-client/fa_reference.html#volume
 
@@ -12,36 +13,53 @@ class CheckVolumes(Check):
     @staticmethod
     async def run(asset: Asset, local_config: dict, config: dict) -> dict:
 
-        url = '/volumes'
-        data = await query(asset, local_config, config, url)
+        req = 'get_volumes'
+        data = await query(asset, local_config, config, req)
 
         return {
             'volumes': [{
-                'name': d['name'],
-                'id': d['id'],
-                'connection_count': d.get('connection_count'),  # int
-                'created': d.get('created'),  # bool
-                'destroyed': d.get('destroyed'),  # bool
+                'name': d.name,
+                'id': d.id,
+                'connection_count': d.connection_count,  # int
+                'created': d.created,  # bool
+                'destroyed': d.destroyed,  # bool
                 'host_encryption_key_status':
-                d.get('host_encryption_key_status'),
-                'pod': d.get('pod', {}).get('name'),
-                'priority': d.get('priority'),  # int
-                'promotion_status': d.get('promotion_status'),
-                'provisioned': d.get('provisioned'),  # int
+                d.host_encryption_key_status,
+                'pod': getattr(d.pod, 'name', None),
+                'priority': d.priority,  # int
+                'promotion_status': d.promotion_status,
+                'provisioned': d.provisioned,  # int
                 'requested_promotion_state':
-                d.get('requested_promotion_state'),
-                'serial': d.get('serial'),
-                'source': d.get('source', {}).get('name'),
-                'subtype': d.get('subtype'),
-                'time_remaining': d.get('time_remaining'),  # int
-                'volume_group': d.get('volume_group', {}).get('name'),
+                d.requested_promotion_state,
+                'serial': d.serial,
+                'source': getattr(d.source, 'name', None),
+                'subtype': d.subtype,
+                'time_remaining': d.time_remaining,  # int
+                'volume_group': getattr(d.volume_group, 'name', None),
+                'data_reduction': opt_int(
+                    getattr(d.space, 'data_reduction', None)),  # int/float
+                'footprint': getattr(d.space, 'footprint', None),  # int
+                'shared': getattr(d.space, 'shared', None),  # int
+                'snapshots': getattr(d.space, 'snapshots', None),  # int
+                'system': getattr(d.space, 'system', None),  # int
+                'thin_provisioning': opt_int(
+                    getattr(d.space, 'thin_provisioning', None)),  # int/float
+                'total_physical': getattr(d.space, 'total_physical', None),
+                'total_provisioned':
+                getattr(d.space, 'total_provisioned', None),  # int
+                'total_reduction': opt_int(
+                    getattr(d.space, 'total_reduction', None)),  # int/float
+                'total_used': getattr(d.space, 'total_used', None),  # int
+                'unique': getattr(d.space, 'unique', None),  # int
+                'unique_effective':
+                getattr(d.space, 'unique_effective', None),  # int
+                'used_provisioned':
+                getattr(d.space, 'used_provisioned', None),  # int
+                'virtual': getattr(d.space, 'virtual', None),  # int
 
                 # SKIP
-                # 'priority_adjustment': d.get('priority_adjustment'),  # obj
-                # 'protocol_endpoint': d.get('protocol_endpoint'),  # obj
-
-                # TODO
-                # 'qos': d.get('qos'),  # obj
-                # 'space': d.get('space'),  # obj
+                # 'priority_adjustment': d.priority_adjustment,  # obj
+                # 'protocol_endpoint': d.protocol_endpoint,  # obj
+                # 'qos': d.qos,  # obj
             } for d in data]
         }

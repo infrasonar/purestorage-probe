@@ -15,22 +15,21 @@ class CheckConnections(Check):
     @staticmethod
     async def run(asset: Asset, local_config: dict, config: dict) -> dict:
 
-        url = '/array-connections'
-        data = await query(asset, local_config, config, url)
+        req = 'get_array_connections'
+        data = await query(asset, local_config, config, req)
 
         return {
             'connections': [{
-                'name': d['name'],
-                'id': d['id'],
-                'encryption': d.get('encryption'),
-                'encryption_mode': d.get('encryption_mode'),
-                'management_address': d.get('management_address'),
-                'replication_addresses':
-                opt_sorted(d.get('replication_addresses')),
-                'replication_transport': d.get('replication_transport'),
-                'status': d.get('status'),
-                'type': d.get('type'),
-                'version': d.get('version'),
-                # 'throttle': d.get('throttle'),  # object
+                'name': d.name,
+                'id': d.id,
+                'encryption': d.encryption,
+                'encryption_mode': d.encryption_mode,
+                'management_address': d.management_address,
+                'replication_addresses': opt_sorted(d.replication_addresses),
+                'replication_transport': d.replication_transport,
+                'status': d.status,
+                'type': d.type,
+                'version': d.version,
+                # 'throttle': d.throttle,  # object
             } for d in data]
         }

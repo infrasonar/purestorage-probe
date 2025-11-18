@@ -12,17 +12,17 @@ class CheckDrives(Check):
     @staticmethod
     async def run(asset: Asset, local_config: dict, config: dict) -> dict:
 
-        url = '/drives'
-        data = await query(asset, local_config, config, url)
+        req = 'get_drives'
+        data = await query(asset, local_config, config, req)
 
         return {
             'drives': [{
-                'name': d['name'],
-                'id': d['id'],
-                'capacity': d.get('capacity'),  # int
-                'details': d.get('details'),
-                'protocol': d.get('protocol'),
-                'status': d.get('status'),
-                'type': d.get('type'),
+                'name': d.name,
+                'id': d.id,
+                'capacity': d.capacity,  # int
+                'details': d.details,
+                'protocol': d.protocol,
+                'status': d.status,
+                'type': d.type,
             } for d in data]
         }

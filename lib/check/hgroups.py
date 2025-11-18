@@ -12,18 +12,18 @@ class CheckHgroups(Check):
     @staticmethod
     async def run(asset: Asset, local_config: dict, config: dict) -> dict:
 
-        url = '/host-groups'
-        data = await query(asset, local_config, config, url)
+        req = 'get_host_groups'
+        data = await query(asset, local_config, config, req)
 
         return {
             'hgroups': [{
-                'name': d['name'],
-                'id': d['id'],
-                'connection_count': d.get('connection_count'),  # int
-                'host_count': d.get('host_count'),  # int
-                'is_local': d.get('is_local'),  # bool
+                'name': d.name,
+                'id': d.id,
+                'connection_count': d.connection_count,  # int
+                'host_count': d.host_count,  # int
+                'is_local': d.is_local,  # bool
 
                 # TODO
-                # 'space': d.get('space'),  # object
+                # 'space': d.space,  # object
             } for d in data]
         }

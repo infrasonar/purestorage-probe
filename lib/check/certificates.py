@@ -20,27 +20,27 @@ class CheckCertificates(Check):
     @staticmethod
     async def run(asset: Asset, local_config: dict, config: dict) -> dict:
 
-        url = '/certificates'
-        data = await query(asset, local_config, config, url)
+        req = 'get_certificates'
+        data = await query(asset, local_config, config, req)
 
         return {
             'certificates': [{
-                'name': d['name'],
-                'certificate': d.get('certificate'),
-                'common_name': d.get('common_name'),
-                'country': d.get('country'),
-                'email': d.get('email'),
-                'intermediate_certificate': d.get('intermediate_certificate'),
-                'issued_by': d.get('issued_by'),
-                'issued_to': d.get('issued_to'),
-                'key_size': d.get('key_size'),  # int
-                'locality': d.get('locality'),
-                'organization': d.get('organization'),
-                'organizational_unit': d.get('organizational_unit'),
-                'state': d.get('state'),
-                'status': d.get('status'),
-                'valid_from': d.get('valid_from'),  # int
-                'valid_to': d.get('valid_to'),  # int
-                'is_valid': is_valid(d.get('valid_from'), d.get('valid_to')),
+                'name': d.name,
+                'certificate': d.certificate,
+                'common_name': d.common_name,
+                'country': d.country,
+                'email': d.email,
+                'intermediate_certificate': d.intermediate_certificate,
+                'issued_by': d.issued_by,
+                'issued_to': d.issued_to,
+                'key_size': d.key_size,  # int
+                'locality': d.locality,
+                'organization': d.organization,
+                'organizational_unit': d.organizational_unit,
+                'state': d.state,
+                'status': d.status,
+                'valid_from': d.valid_from,  # int
+                'valid_to': d.valid_to,  # int
+                'is_valid': is_valid(d.valid_from, d.valid_to),
             } for d in data]
         }
