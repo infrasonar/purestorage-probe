@@ -1,4 +1,3 @@
-import aiohttp
 from libprobe.asset import Asset
 from libprobe.exceptions import CheckException
 from typing import List, Dict

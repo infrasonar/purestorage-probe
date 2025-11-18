@@ -1,2 +1,2 @@
-aiohttp==3.13.2
+py-pure-client==1.77.1
 libprobe==2.0.2
