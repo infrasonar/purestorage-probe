@@ -1,26 +1,29 @@
 from libprobe.asset import Asset
+from libprobe.check import Check
 from ..query import query
 
 # https://code.purestorage.com/py-pure-client/fa_reference.html#hostgroup
 
 
-async def check_hgroups(
-        asset: Asset,
-        asset_config: dict,
-        check_config: dict):
+class CheckHgroups(Check):
+    key = 'hgroups'
+    unchanged_eol = 0
 
-    url = '/host-groups'
-    data = await query(asset, asset_config, check_config, url)
+    @staticmethod
+    async def run(asset: Asset, local_config: dict, config: dict) -> dict:
 
-    return {
-        'hgroups': [{
-            'name': d['name'],
-            'id': d['id'],
-            'connection_count': d.get('connection_count'),  # int
-            'host_count': d.get('host_count'),  # int
-            'is_local': d.get('is_local'),  # bool
+        url = '/host-groups'
+        data = await query(asset, local_config, config, url)
 
-            # TODO
-            # 'space': d.get('space'),  # object
-        } for d in data]
-    }
+        return {
+            'hgroups': [{
+                'name': d['name'],
+                'id': d['id'],
+                'connection_count': d.get('connection_count'),  # int
+                'host_count': d.get('host_count'),  # int
+                'is_local': d.get('is_local'),  # bool
+
+                # TODO
+                # 'space': d.get('space'),  # object
+            } for d in data]
+        }

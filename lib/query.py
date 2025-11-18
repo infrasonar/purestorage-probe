@@ -6,15 +6,15 @@ from typing import List, Dict
 
 async def query(
         asset: Asset,
-        asset_config: dict,
-        check_config: dict,
+        local_config: dict,
+        config: dict,
         route: str) -> List[Dict]:
 
-    address = check_config.get('address')
+    address = config.get('address')
     if not address:
         address = asset.name
-    username = asset_config.get('username')
-    password = asset_config.get('password')
+    username = local_config.get('username')
+    password = local_config.get('password')
     if None in (username, password):
         raise CheckException('missing credentials')
 

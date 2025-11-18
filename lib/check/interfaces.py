@@ -1,4 +1,5 @@
 from libprobe.asset import Asset
+from libprobe.check import Check
 from ..query import query
 
 # https://code.purestorage.com/py-pure-client/fa_reference.html#networkinterface
@@ -6,24 +7,26 @@ from ..query import query
 # https://code.purestorage.com/py-pure-client/fa_reference.html#networkinterfacefc
 
 
-async def check_interfaces(
-        asset: Asset,
-        asset_config: dict,
-        check_config: dict):
+class CheckInterfaces(Check):
+    key = 'interfaces'
+    unchanged_eol = 0
 
-    url = '/network-interfaces'
-    data = await query(asset, asset_config, check_config, url)
+    @staticmethod
+    async def run(asset: Asset, local_config: dict, config: dict) -> dict:
 
-    return {
-        'interfaces': [{
-            'name': d['name'],
-            'enabled': d.get('enabled'),  # bool
-            'interface_type': d.get('interface_type'),
-            'services': d.get('services'),  # liststr
-            'speed': d.get('speed'),  # int
+        url = '/network-interfaces'
+        data = await query(asset, local_config, config, url)
 
-            # TODO
-            # 'eth': d.get('eth'),  # object
-            # 'fc': d.get('fc'),  # object
-        } for d in data]
-    }
+        return {
+            'interfaces': [{
+                'name': d['name'],
+                'enabled': d.get('enabled'),  # bool
+                'interface_type': d.get('interface_type'),
+                'services': d.get('services'),  # liststr
+                'speed': d.get('speed'),  # int
+
+                # TODO
+                # 'eth': d.get('eth'),  # object -> !!!
+                # 'fc': d.get('fc'),  # object -> name
+            } for d in data]
+        }

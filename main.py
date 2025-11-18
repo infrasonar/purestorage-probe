@@ -1,33 +1,32 @@
 from libprobe.probe import Probe
-from lib.check.certificates import check_certificates
-from lib.check.connections import check_connections
-from lib.check.drives import check_drives
-from lib.check.hardware import check_hardware
-from lib.check.hgroups import check_hgroups
-from lib.check.hosts import check_hosts
-from lib.check.interfaces import check_interfaces
-from lib.check.pgroups import check_pgroups
-from lib.check.pods import check_pods
-from lib.check.ports import check_ports
-from lib.check.volumes import check_volumes
+from lib.check.certificates import CheckCertificates
+from lib.check.connections import CheckConnections
+from lib.check.drives import CheckDrives
+from lib.check.hardware import CheckHardware
+from lib.check.hgroups import CheckHgroups
+from lib.check.hosts import CheckHosts
+from lib.check.interfaces import CheckInterfaces
+from lib.check.pgroups import CheckPgroups
+from lib.check.pods import CheckPods
+from lib.check.ports import CheckPorts
+from lib.check.volumes import CheckVolumes
 from lib.version import __version__ as version
 
 
 if __name__ == '__main__':
-    checks = {
-        'certificates': check_certificates,
-        'connections': check_connections,
-        'drives': check_drives,
-        'hardware': check_hardware,
-        'hgroups': check_hgroups,
-        'hosts': check_hosts,
-        'interfaces': check_interfaces,
-        'pgroups': check_pgroups,
-        'pods': check_pods,
-        'ports': check_ports,
-        'volumes': check_volumes,
-    }
+    checks = (
+        CheckCertificates,
+        CheckConnections,
+        CheckDrives,
+        CheckHardware,
+        CheckHgroups,
+        CheckHosts,
+        CheckInterfaces,
+        CheckPgroups,
+        CheckPods,
+        CheckPorts,
+        CheckVolumes,
+    )
 
     probe = Probe("purestorage", version, checks)
-
     probe.start()
