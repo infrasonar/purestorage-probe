@@ -1,6 +1,7 @@
 from libprobe.asset import Asset
 from libprobe.check import Check
 from ..query import query
+from ..utils import opt_sorted
 
 # https://code.purestorage.com/py-pure-client/fa_reference.html#networkinterface
 # https://code.purestorage.com/py-pure-client/fa_reference.html#networkinterfaceeth
@@ -22,11 +23,11 @@ class CheckInterfaces(Check):
                 'name': d['name'],
                 'enabled': d.get('enabled'),  # bool
                 'interface_type': d.get('interface_type'),
-                'services': d.get('services'),  # liststr
+                'services': opt_sorted(d.get('services')),  # liststr
                 'speed': d.get('speed'),  # int
+                'fc': d.get('fc', {}).get('name'),
 
                 # TODO
                 # 'eth': d.get('eth'),  # object -> !!!
-                # 'fc': d.get('fc'),  # object -> name
             } for d in data]
         }

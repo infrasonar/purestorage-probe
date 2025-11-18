@@ -16,7 +16,7 @@ class CheckVolumes(Check):
         data = await query(asset, local_config, config, url)
 
         return {
-            'ports': [{
+            'volumes': [{
                 'name': d['name'],
                 'id': d['id'],
                 'connection_count': d.get('connection_count'),  # int
