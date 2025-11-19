@@ -12,17 +12,18 @@ from .version import __version__
 USER_AGENT = f'InfraSonarPureStorageProbe/{__version__}'
 
 # TODO do we need asset.id in key?
-CONN_CACHE: dict[tuple[str, str], flasharray.Client] = \
-    defaultdict(flasharray.Client)  # type: ignore
+_cache: dict[
+    tuple[str, str],
+    flasharray.Client] = defaultdict(flasharray.Client)  # type: ignore
 
-LOCK = threading.Lock()
+_lock = threading.Lock()
 
 
 def get_client(
         address: str,
         token: str) -> flasharray.Client:  # type: ignore
 
-    conn = CONN_CACHE.get((address, token))
+    conn = _cache.get((address, token))
     if conn:
         return conn
 
@@ -36,7 +37,7 @@ def get_client(
     except PureError:
         raise CheckException('Unable to connect')
     else:
-        CONN_CACHE[(address, token)] = conn
+        _cache[(address, token)] = conn
         return conn
 
 
@@ -45,13 +46,14 @@ def _query(
         token: str,
         req: str):
 
-    with LOCK:
+    with _lock:
         client = get_client(address, token)
-        fun = getattr(client, req, None)
-        if fun is None:
-            raise CheckException(f'Unknown request `{req}`')
 
-        return fun()
+    fun = getattr(client, req, None)
+    if fun is None:
+        raise CheckException(f'Unknown request `{req}`')
+
+    return fun()
 
 
 async def query(
