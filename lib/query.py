@@ -11,14 +11,15 @@ from .version import __version__
 USER_AGENT = f'InfraSonarPureStorageProbe/{__version__}'
 
 # TODO do we need asset.id in key?
-CONN_CACHE: dict[tuple[int, str, str], flasharray.Client] = \
-    defaultdict(flasharray.Client)
+CONN_CACHE: dict[
+    tuple[int, str, str],
+    flasharray.Client] = defaultdict(flasharray.Client)  # type: ignore
 
 
 async def get_client(
         asset: Asset,
         address: str,
-        token: str) -> flasharray.Client:
+        token: str) -> flasharray.Client:  # type: ignore
 
     conn = CONN_CACHE.get((asset.id, address, token))
     if conn:
