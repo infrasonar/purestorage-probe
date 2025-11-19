@@ -1,7 +1,7 @@
 from libprobe.asset import Asset
 from libprobe.check import Check
 from ..query import query
-from ..utils import opt_int
+from ..utils import opt_float
 
 # https://code.purestorage.com/py-pure-client/fa_reference.html#volume
 
@@ -36,18 +36,18 @@ class CheckVolumes(Check):
                 'subtype': d.subtype,
                 'time_remaining': d.time_remaining,  # int
                 'volume_group': getattr(d.volume_group, 'name', None),
-                'data_reduction': opt_int(
+                'data_reduction': opt_float(
                     getattr(d.space, 'data_reduction', None)),  # int/float
                 'footprint': getattr(d.space, 'footprint', None),  # int
                 'shared': getattr(d.space, 'shared', None),  # int
                 'snapshots': getattr(d.space, 'snapshots', None),  # int
                 'system': getattr(d.space, 'system', None),  # int
-                'thin_provisioning': opt_int(
+                'thin_provisioning': opt_float(
                     getattr(d.space, 'thin_provisioning', None)),  # int/float
                 'total_physical': getattr(d.space, 'total_physical', None),
                 'total_provisioned':
                 getattr(d.space, 'total_provisioned', None),  # int
-                'total_reduction': opt_int(
+                'total_reduction': opt_float(
                     getattr(d.space, 'total_reduction', None)),  # int/float
                 'total_used': getattr(d.space, 'total_used', None),  # int
                 'unique': getattr(d.space, 'unique', None),  # int
