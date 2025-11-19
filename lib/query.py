@@ -82,7 +82,7 @@ async def query(
     )
     if isinstance(result, flasharray.ErrorResponse):
         status_code = result.status_code  # type: ignore
-        logging.error( f'Invalid response status {status_code} ({result})')
+        logging.error(f'Invalid response status {status_code} ({result})')
         messages = ', '.join(err.message for err in result.errors)
         raise CheckException(
             f'Invalid response status {status_code} ({messages})')
