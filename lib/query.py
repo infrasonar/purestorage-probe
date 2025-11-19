@@ -11,7 +11,6 @@ from .version import __version__
 
 USER_AGENT = f'InfraSonarPureStorageProbe/{__version__}'
 
-# TODO do we need asset.id in key?
 _cache: dict[
     tuple[str, str],
     flasharray.Client] = defaultdict(flasharray.Client)  # type: ignore
