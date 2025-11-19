@@ -70,7 +70,6 @@ async def query(
     result = await asyncio.get_running_loop().run_in_executor(
         None,
         _query,
-        asset,
         address,
         token,
         req,
