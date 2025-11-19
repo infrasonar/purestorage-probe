@@ -23,7 +23,7 @@ class CheckHgroups(Check):
                 'host_count': d.host_count,  # int
                 'is_local': d.is_local,  # bool
 
-                # TODO
+                # TODO: space is a total of all volumes attached to hgroup
                 # 'space': d.space,  # object
             } for d in data]
         }

@@ -52,7 +52,11 @@ def _query(
     if fun is None:
         raise CheckException(f'Unknown request `{req}`')
 
-    return fun()
+    try:
+        return fun()
+    except Exception as e:
+        msg = str(e) or type(e).__name__
+        raise CheckException(f'Call to `{req}` has failed: {msg}')
 
 
 async def query(

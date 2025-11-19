@@ -35,7 +35,7 @@ class CheckHosts(Check):
                 'vlan': d.vlan,
                 'wwns': opt_sorted(d.wwns),  # liststr
 
-                # TODO
+                # TODO: space is a total of all volumes attached to host
                 # 'space': d.space,  # object
             } for d in data]
         }
