@@ -1,4 +1,5 @@
 import asyncio
+import threading
 from collections import defaultdict
 from libprobe.asset import Asset
 from libprobe.exceptions import CheckException
@@ -11,17 +12,17 @@ from .version import __version__
 USER_AGENT = f'InfraSonarPureStorageProbe/{__version__}'
 
 # TODO do we need asset.id in key?
-CONN_CACHE: dict[
-    tuple[int, str, str],
-    flasharray.Client] = defaultdict(flasharray.Client)  # type: ignore
+CONN_CACHE: dict[tuple[str, str], flasharray.Client] = \
+    defaultdict(flasharray.Client)  # type: ignore
+
+LOCK = threading.Lock()
 
 
-async def get_client(
-        asset: Asset,
+def get_client(
         address: str,
         token: str) -> flasharray.Client:  # type: ignore
 
-    conn = CONN_CACHE.get((asset.id, address, token))
+    conn = CONN_CACHE.get((address, token))
     if conn:
         return conn
 
@@ -35,22 +36,22 @@ async def get_client(
     except PureError:
         raise CheckException('Unable to connect')
     else:
-        CONN_CACHE[(asset.id, address, token)] = conn
+        CONN_CACHE[(address, token)] = conn
         return conn
 
 
-async def _query(
-        asset: Asset,
+def _query(
         address: str,
         token: str,
         req: str):
 
-    client = await get_client(asset, address, token)
-    fun = getattr(client, req, None)
-    if fun is None:
-        raise CheckException(f'Unknown request `{req}`')
+    with LOCK:
+        client = get_client(address, token)
+        fun = getattr(client, req, None)
+        if fun is None:
+            raise CheckException(f'Unknown request `{req}`')
 
-    return fun()
+        return fun()
 
 
 async def query(
