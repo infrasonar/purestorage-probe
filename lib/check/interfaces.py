@@ -6,6 +6,12 @@ from ..utils import opt_sorted
 # https://code.purestorage.com/py-pure-client/fa_reference.html#networkinterface
 # https://code.purestorage.com/py-pure-client/fa_reference.html#networkinterfaceeth
 # https://code.purestorage.com/py-pure-client/fa_reference.html#networkinterfacefc
+def pp(d):
+    import logging
+    logging.info(type(d.eth).__name__)
+    logging.info(dir(d.eth))
+    logging.info(d.eth)
+    return d
 
 
 class CheckInterfaces(Check):
@@ -20,7 +26,7 @@ class CheckInterfaces(Check):
 
         return {
             'interfaces': [{
-                'name': d.name,
+                'name': pp(d).name,
                 'enabled': d.enabled,  # bool
                 'interface_type': d.interface_type,
                 'services': opt_sorted(d.services),  # liststr
