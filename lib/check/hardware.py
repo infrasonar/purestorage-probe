@@ -19,7 +19,7 @@ class CheckHardware(Check):
             'hardware': [{
                 'name': d.name,
                 'details': getattr(d, 'details', None),
-                'identify_enabled': getattr(d, 'identify_enabled', None),  # bool
+                'identify_enabled': getattr(d, 'identify_enabled', None),
                 'index': getattr(d, 'index', None),  # int
                 'model': getattr(d, 'model', None),
                 'serial': getattr(d, 'serial', None),
