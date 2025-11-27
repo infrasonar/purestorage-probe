@@ -15,8 +15,14 @@ def is_valid(vfrom: int | None, vto: int | None) -> bool | None:
         #     now = int(time.time())
         #     return now < vto
         return
-    now = int(time.time())
+    now = int(time.time()) * 1000
     return vfrom < now < vto
+
+
+def opt_ms_to_sec(ts: int | None) -> int | None:
+    if ts is None:
+        return
+    return ts // 1000
 
 
 class CheckCertificates(Check):
@@ -43,8 +49,8 @@ class CheckCertificates(Check):
                 'organizational_unit': getattr(d, 'organizational_unit', None),
                 'state': getattr(d, 'state', None),
                 'status': d.status,
-                'valid_from': d.valid_from,  # int
-                'valid_to': getattr(d, 'valid_to', None),  # int
+                'valid_from': opt_ms_to_sec(getattr(d, 'valid_from', None)),
+                'valid_to': opt_ms_to_sec(getattr(d, 'valid_to', None)),  # int
                 'is_valid': is_valid(d.valid_from, d.valid_to),
             } for d in data]
         }

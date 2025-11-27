@@ -21,7 +21,7 @@ class CheckHardware(Check):
                 'details': getattr(d, 'details', None),
                 'identify_enabled': getattr(d, 'identify_enabled', None),  # bool
                 'index': getattr(d, 'index', None),  # int
-                'model': d.model,
+                'model': getattr(d, 'model', None),
                 'serial': d.serial,
                 'slot': getattr(d, 'slot', None),  # int
                 'speed': getattr(d, 'speed', None),  # int

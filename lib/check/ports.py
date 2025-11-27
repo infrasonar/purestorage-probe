@@ -21,7 +21,7 @@ class CheckPorts(Check):
                 'iqn': getattr(d, 'iqn', None),
                 'nqn': getattr(d, 'nqn', None),
                 'portal': getattr(d, 'portal', None),
-                'wwn': d.wwn,
-                'failover': d.failover,
+                'wwn': getattr(d, 'wwn', None),
+                'failover': getattr(d, 'failover', None),
             } for d in data]
         }

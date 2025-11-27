@@ -21,7 +21,7 @@ class CheckVolumes(Check):
                 'name': d.id,
                 'display_name': d.name,
                 'connection_count': d.connection_count,  # int
-                'created': d.created,  # bool
+                'created': d.created,  # int
                 'destroyed': d.destroyed,  # bool
                 'host_encryption_key_status':
                 d.host_encryption_key_status,
