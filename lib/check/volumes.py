@@ -51,8 +51,6 @@ class CheckVolumes(Check):
                     getattr(d.space, 'total_reduction', None)),  # int/float
                 'total_used': getattr(d.space, 'total_used', None),  # int
                 'unique': getattr(d.space, 'unique', None),  # int
-                'unique_effective':
-                getattr(d.space, 'unique_effective', None),  # int
                 'used_provisioned':
                 getattr(d.space, 'used_provisioned', None),  # int
                 'virtual': getattr(d.space, 'virtual', None),  # int
