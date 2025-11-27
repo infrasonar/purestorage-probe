@@ -44,7 +44,6 @@ class CheckVolumes(Check):
                 'system': getattr(d.space, 'system', None),  # int
                 'thin_provisioning': opt_float(
                     getattr(d.space, 'thin_provisioning', None)),  # int/float
-                'total_physical': getattr(d.space, 'total_physical', None),
                 'total_provisioned':
                 getattr(d.space, 'total_provisioned', None),  # int
                 'total_reduction': opt_float(
