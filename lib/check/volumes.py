@@ -18,8 +18,8 @@ class CheckVolumes(Check):
 
         return {
             'volumes': [{
-                'name': d.name,
-                'id': d.id,
+                'name': d.id,
+                'display_name': d.name,
                 'connection_count': d.connection_count,  # int
                 'created': d.created,  # bool
                 'destroyed': d.destroyed,  # bool

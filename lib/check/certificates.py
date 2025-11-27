@@ -8,6 +8,12 @@ from ..query import query
 
 def is_valid(vfrom: int | None, vto: int | None) -> bool | None:
     if vfrom is None or vto is None:
+        # if vfrom is not None:
+        #     now = int(time.time())
+        #     return vfrom < now
+        # if vto is not None:
+        #     now = int(time.time())
+        #     return now < vto
         return
     now = int(time.time())
     return vfrom < now < vto
@@ -34,19 +40,19 @@ class CheckCertificates(Check):
         return {
             'certificates': [{
                 'name': pp(d).name,
-                'common_name': d.common_name,
-                'country': d.country,
-                'email': d.email,
+                'common_name': getattr(d, 'common_name', None),
+                'country': getattr(d, 'country', None),
+                'email': getattr(d, 'email', None),
                 'issued_by': d.issued_by,
                 'issued_to': d.issued_to,
                 'key_size': d.key_size,  # int
-                'locality': d.locality,
-                'organization': d.organization,
-                'organizational_unit': d.organizational_unit,
-                'state': d.state,
+                'locality': getattr(d, 'locality', None),
+                'organization': getattr(d, 'organization', None),
+                'organizational_unit': getattr(d, 'organizational_unit', None),
+                'state': getattr(d, 'state', None),
                 'status': d.status,
                 'valid_from': d.valid_from,  # int
-                'valid_to': d.valid_to,  # int
+                'valid_to': getattr(d, 'valid_to', None),  # int
                 'is_valid': is_valid(d.valid_from, d.valid_to),
             } for d in data]
         }
