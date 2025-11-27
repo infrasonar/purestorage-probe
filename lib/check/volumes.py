@@ -1,7 +1,7 @@
 from libprobe.asset import Asset
 from libprobe.check import Check
 from ..query import query
-from ..utils import opt_float
+from ..utils import opt_float, opt_ms_to_sec
 
 # https://code.purestorage.com/py-pure-client/fa_reference.html#volume
 
@@ -21,7 +21,7 @@ class CheckVolumes(Check):
                 'name': d.id,
                 'display_name': d.name,
                 'connection_count': d.connection_count,  # int
-                'created': d.created,  # int
+                'created': opt_ms_to_sec(d.created),  # int
                 'destroyed': d.destroyed,  # bool
                 'host_encryption_key_status':
                 d.host_encryption_key_status,

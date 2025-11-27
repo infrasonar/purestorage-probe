@@ -2,6 +2,7 @@ import time
 from libprobe.asset import Asset
 from libprobe.check import Check
 from ..query import query
+from ..utils import opt_ms_to_sec
 
 # https://code.purestorage.com/py-pure-client/fa_reference.html#certificate
 
@@ -18,11 +19,6 @@ def is_valid(vfrom: int | None, vto: int | None) -> bool | None:
     now = int(time.time()) * 1000
     return vfrom < now < vto
 
-
-def opt_ms_to_sec(ts: int | None) -> int | None:
-    if ts is None:
-        return
-    return ts // 1000
 
 
 class CheckCertificates(Check):
