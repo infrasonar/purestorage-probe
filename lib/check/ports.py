@@ -18,8 +18,8 @@ class CheckPorts(Check):
         return {
             'ports': [{
                 'name': d.name,
-                'iqn': d.iqn,
-                'nqn': d.nqn,
+                'iqn': getattr(d, 'iqn', None),
+                'nqn': getattr(d, 'nqn', None),
                 'portal': d.portal,
                 'wwn': d.wwn,
                 'failover': d.failover,

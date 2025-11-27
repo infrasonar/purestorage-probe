@@ -18,7 +18,7 @@ class CheckHardware(Check):
         return {
             'hardware': [{
                 'name': d.name,
-                'details': d.details,
+                'details': getattr(d, 'details', None),
                 'identify_enabled': d.identify_enabled,  # bool
                 'index': d.index,  # int
                 'model': d.model,

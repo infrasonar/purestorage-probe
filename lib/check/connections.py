@@ -20,8 +20,8 @@ class CheckConnections(Check):
 
         return {
             'connections': [{
-                'name': pp(d).name,
-                'id': d.id,
+                'name': d.id,
+                'local_name': d.name,
                 'encryption': getattr(d, 'encryption', None),
                 'encryption_mode': getattr(d, 'encryption_mode', None),
                 'management_address': d.management_address,
