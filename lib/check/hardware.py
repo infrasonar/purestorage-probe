@@ -5,6 +5,14 @@ from ..query import query
 # https://code.purestorage.com/py-pure-client/fa_reference.html#hardware
 
 
+def pp(d):
+    import logging
+    logging.info(type(d).__name__)
+    logging.info(dir(d))
+    logging.info(d)
+    return d
+
+
 class CheckHardware(Check):
     key = 'hardware'
     unchanged_eol = 0
@@ -17,12 +25,12 @@ class CheckHardware(Check):
 
         return {
             'hardware': [{
-                'name': d.name,
+                'name': pp(d).name,
                 'details': getattr(d, 'details', None),
                 'identify_enabled': getattr(d, 'identify_enabled', None),  # bool
                 'index': getattr(d, 'index', None),  # int
                 'model': getattr(d, 'model', None),
-                'serial': d.serial,
+                'serial': getattr(d, 'serial', None),
                 'slot': getattr(d, 'slot', None),  # int
                 'speed': getattr(d, 'speed', None),  # int
                 'status': getattr(d, 'status', None),
