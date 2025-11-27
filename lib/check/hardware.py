@@ -19,15 +19,15 @@ class CheckHardware(Check):
             'hardware': [{
                 'name': d.name,
                 'details': getattr(d, 'details', None),
-                'identify_enabled': d.identify_enabled,  # bool
-                'index': d.index,  # int
+                'identify_enabled': getattr(d, 'identify_enabled', None),  # bool
+                'index': getattr(d, 'index', None),  # int
                 'model': d.model,
                 'serial': d.serial,
-                'slot': d.slot,  # int
-                'speed': d.speed,  # int
-                'status': d.status,
-                'temperature': d.temperature,  # int
+                'slot': getattr(d, 'slot', None),  # int
+                'speed': getattr(d, 'speed', None),  # int
+                'status': getattr(d, 'status', None),
+                'temperature': getattr(d, 'temperature', None),  # int
                 'type': d.type,
-                'voltage': d.voltage,  # int
+                'voltage': getattr(d, 'voltage', None),  # int
             } for d in data]
         }

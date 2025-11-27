@@ -24,7 +24,7 @@ class CheckHosts(Check):
                 'is_local': d.is_local,  # bool
                 'iqns': opt_sorted(d.iqns),  # liststr
                 'nqns': opt_sorted(d.nqns),  # liststr
-                'personality': d.personality,
+                'personality': getattr(d, 'personality', None),
                 'port_connectivity_details':
                 getattr(d.port_connectivity, 'details', None),
                 'port_connectivity_status':

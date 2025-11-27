@@ -20,7 +20,7 @@ class CheckPorts(Check):
                 'name': d.name,
                 'iqn': getattr(d, 'iqn', None),
                 'nqn': getattr(d, 'nqn', None),
-                'portal': d.portal,
+                'portal': getattr(d, 'portal', None),
                 'wwn': d.wwn,
                 'failover': d.failover,
             } for d in data]

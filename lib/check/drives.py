@@ -20,7 +20,7 @@ class CheckDrives(Check):
                 'name': d.name,
                 'capacity': d.capacity,  # int
                 'details': getattr(d, 'details', None),
-                'protocol': d.protocol,
+                'protocol': getattr(d, 'protocol', None),
                 'status': d.status,
                 'type': d.type,
             } for d in data]
