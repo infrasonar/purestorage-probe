@@ -18,7 +18,6 @@ class CheckDrives(Check):
         return {
             'drives': [{
                 'name': d.name,
-                'id': d.id,
                 'capacity': d.capacity,  # int
                 'details': d.details,
                 'protocol': d.protocol,

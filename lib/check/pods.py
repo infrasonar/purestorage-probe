@@ -17,8 +17,8 @@ class CheckPods(Check):
 
         return {
             'pods': [{
-                'name': d.name,
-                'id': d.id,
+                'name': d.id,
+                'display_name': d.name,
                 'array_count': d.array_count,  # int
                 'arrays': [e.status for e in d.arrays]
                 if d.arrays is not None else None,  # liststr
@@ -31,7 +31,7 @@ class CheckPods(Check):
                 'link_source_count': d.link_source_count,  # int
                 'link_target_count': d.link_target_count,  # int
                 'mediator': d.mediator,
-                'mediator_version': d.mediator_version,
+                'mediator_version': getattr(d, 'mediator_version', None),
                 'promotion_status': d.promotion_status,
                 'quota_limit': d.quota_limit,  # int
                 'requested_promotion_state':

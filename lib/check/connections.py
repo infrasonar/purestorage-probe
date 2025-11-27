@@ -1,4 +1,3 @@
-import logging
 from libprobe.asset import Asset
 from libprobe.check import Check
 from ..query import query
@@ -7,13 +6,6 @@ from ..utils import opt_sorted
 # https://code.purestorage.com/py-pure-client/fa_reference.html#arrayconnection
 # https://code.purestorage.com/py-pure-client/fa_reference.html#throttle
 # https://code.purestorage.com/py-pure-client/fa_reference.html#timewindow
-
-
-def pp(d):
-    logging.info(type(d).__name__)
-    logging.info(dir(d))
-    logging.info(d)
-    return d
 
 
 class CheckConnections(Check):

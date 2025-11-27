@@ -18,7 +18,6 @@ class CheckPgroups(Check):
         return {
             'pgroups': [{
                 'name': d.name,
-                'id': d.id,
                 'destroyed': d.destroyed,  # bool
                 'host_count': d.host_count,  # int
                 'host_group_count': d.host_group_count,  # int

@@ -13,6 +13,14 @@ def is_valid(vfrom: int | None, vto: int | None) -> bool | None:
     return vfrom < now < vto
 
 
+def pp(d):
+    import logging
+    logging.info(type(d).__name__)
+    logging.info(dir(d))
+    logging.info(d)
+    return d
+
+
 class CheckCertificates(Check):
     key = 'certificates'
     unchanged_eol = 14400
@@ -25,7 +33,7 @@ class CheckCertificates(Check):
 
         return {
             'certificates': [{
-                'name': d.name,
+                'name': pp(d).name,
                 'common_name': d.common_name,
                 'country': d.country,
                 'email': d.email,

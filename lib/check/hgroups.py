@@ -18,7 +18,6 @@ class CheckHgroups(Check):
         return {
             'hgroups': [{
                 'name': d.name,
-                'id': d.id,
                 'connection_count': d.connection_count,  # int
                 'host_count': d.host_count,  # int
                 'is_local': d.is_local,  # bool

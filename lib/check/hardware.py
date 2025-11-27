@@ -18,7 +18,6 @@ class CheckHardware(Check):
         return {
             'hardware': [{
                 'name': d.name,
-                'id': d.id,
                 'details': d.details,
                 'identify_enabled': d.identify_enabled,  # bool
                 'index': d.index,  # int
