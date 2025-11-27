@@ -20,7 +20,6 @@ def is_valid(vfrom: int | None, vto: int | None) -> bool | None:
     return vfrom < now < vto
 
 
-
 class CheckCertificates(Check):
     key = 'certificates'
     unchanged_eol = 14400
