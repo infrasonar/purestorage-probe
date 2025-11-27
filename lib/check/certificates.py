@@ -26,11 +26,9 @@ class CheckCertificates(Check):
         return {
             'certificates': [{
                 'name': d.name,
-                'certificate': d.certificate,
                 'common_name': d.common_name,
                 'country': d.country,
                 'email': d.email,
-                'intermediate_certificate': d.intermediate_certificate,
                 'issued_by': d.issued_by,
                 'issued_to': d.issued_to,
                 'key_size': d.key_size,  # int

@@ -34,7 +34,7 @@ class CheckVolumes(Check):
                 'serial': d.serial,
                 'source': getattr(d.source, 'name', None),
                 'subtype': d.subtype,
-                'time_remaining': d.time_remaining,  # int
+                'time_remaining': getattr(d, 'time_remaining', None),  # int?
                 'volume_group': getattr(d.volume_group, 'name', None),
                 'data_reduction': opt_float(
                     getattr(d.space, 'data_reduction', None)),  # int/float

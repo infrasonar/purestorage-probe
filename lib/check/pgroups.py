@@ -27,7 +27,7 @@ class CheckPgroups(Check):
                 'retention_lock': d.retention_lock,
                 'source': getattr(d.source, 'name', None),  # str
                 'target_count': d.target_count,  # int
-                'time_remaining': d.time_remaining,  # int
+                'time_remaining': getattr(d, 'time_remaining', None),  # int?
                 'volume_count': d.volume_count,  # int
 
                 # SKIPPED

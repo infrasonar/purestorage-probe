@@ -37,7 +37,7 @@ class CheckPods(Check):
                 'requested_promotion_state':
                 d.requested_promotion_state,
                 'source': getattr(d.source, 'name', None),
-                'time_remaining': d.time_remaining,  # int
+                'time_remaining': getattr(d, 'time_remaining', None),  # int?
 
                 # SKIP
                 # 'eradication_config': d.eradication_config,  # object
