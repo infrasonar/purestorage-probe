@@ -4,6 +4,12 @@ from ..query import query
 from ..utils import opt_float, opt_ms_to_sec
 
 # https://code.purestorage.com/py-pure-client/fa_reference.html#volume
+def pp(d):
+    import logging
+    logging.info(type(d.space).__name__)
+    logging.info(dir(d.space))
+    logging.info(d.space)
+    return d
 
 
 class CheckVolumes(Check):
@@ -18,7 +24,7 @@ class CheckVolumes(Check):
 
         return {
             'volumes': [{
-                'name': d.id,
+                'name': pp(d).id,
                 'display_name': d.name,
                 'connection_count': d.connection_count,  # int
                 'created': opt_ms_to_sec(d.created),  # int
