@@ -24,9 +24,10 @@ class CheckConnections(Check):
                 'local_name': d.name,
                 'encryption': getattr(d, 'encryption', None),
                 'encryption_mode': getattr(d, 'encryption_mode', None),
-                'management_address': d.management_address,
+                'management_address': getattr(d, 'management_address', None),
                 'replication_addresses': opt_sorted(d.replication_addresses),
-                'replication_transport': d.replication_transport,
+                'replication_transport':
+                getattr(d, 'replication_transport', None),
                 'status': d.status,
                 'type': d.type,
                 'version': d.version,
