@@ -19,7 +19,7 @@ class CheckAlerts(Check):
         days = config.get('alert_history_days', 7)
         datestr = (
             datetime.now(UTC) - timedelta(days=days)
-        ).isoformat(sep='T', timespec='seconds')
+        ).isoformat(sep='T', timespec='seconds').replace('+00:00', 'Z')
         kwargs = {'filter': f'created > "{datestr}"'}
         data = await query(asset, local_config, config, req, kwargs)
 
