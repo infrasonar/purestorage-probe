@@ -13,7 +13,7 @@ class CheckPods(Check):
     async def run(asset: Asset, local_config: dict, config: dict) -> dict:
 
         req = 'get_pods'
-        data = await query(asset, local_config, config, req)
+        data = await query(asset, local_config, config, req, {})
 
         return {
             'pods': [{

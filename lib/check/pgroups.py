@@ -13,7 +13,7 @@ class CheckPgroups(Check):
     async def run(asset: Asset, local_config: dict, config: dict) -> dict:
 
         req = 'get_protection_groups'
-        data = await query(asset, local_config, config, req)
+        data = await query(asset, local_config, config, req, {})
 
         return {
             'pgroups': [{

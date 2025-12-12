@@ -1,4 +1,5 @@
 from libprobe.probe import Probe
+from lib.check.alerts import CheckAlerts
 from lib.check.certificates import CheckCertificates
 from lib.check.connections import CheckConnections
 from lib.check.drives import CheckDrives
@@ -15,6 +16,7 @@ from lib.version import __version__ as version
 
 if __name__ == '__main__':
     checks = (
+        CheckAlerts,
         CheckCertificates,
         CheckConnections,
         CheckDrives,

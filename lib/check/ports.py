@@ -13,7 +13,7 @@ class CheckPorts(Check):
     async def run(asset: Asset, local_config: dict, config: dict) -> dict:
 
         req = 'get_ports'
-        data = await query(asset, local_config, config, req)
+        data = await query(asset, local_config, config, req, {})
 
         return {
             'ports': [{

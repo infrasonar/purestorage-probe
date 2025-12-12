@@ -44,7 +44,8 @@ def get_client(
 def _query(
         address: str,
         token: str,
-        req: str):
+        req: str,
+        kwargs: dict[str, Any]):
 
     with _lock:
         client = get_client(address, token)
@@ -54,7 +55,7 @@ def _query(
         raise CheckException(f'Unknown request `{req}`')
 
     try:
-        return fun()
+        return fun(**kwargs)
     except Exception as e:
         msg = str(e) or type(e).__name__
         raise CheckException(f'Call to `{req}` has failed: {msg}')
@@ -64,7 +65,8 @@ async def query(
         asset: Asset,
         local_config: dict,
         config: dict,
-        req: str) -> list[Any]:
+        req: str,
+        kwargs: dict[str, Any]) -> list[Any]:
 
     address = config.get('address')
     if not address:
@@ -79,6 +81,7 @@ async def query(
         address,
         token,
         req,
+        kwargs,
     )
     if isinstance(result, flasharray.ErrorResponse):
         status_code = result.status_code  # type: ignore
