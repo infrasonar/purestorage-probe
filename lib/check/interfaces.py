@@ -17,19 +17,20 @@ class CheckInterfaces(Check):
 
         req = 'get_network_interfaces'
         data = await query(asset, local_config, config, req, {})
+        g = getattr
 
         return {
             'interfaces': [{
                 'name': d.name,
-                'enabled': d.enabled,  # bool
-                'interface_type': d.interface_type,
-                'services': opt_sorted(d.services),  # liststr
-                'speed': d.speed,  # int
-                'fc': getattr(d.fc, 'name', None),
-                'address': getattr(d.eth, 'address', None),
-                'gateway': getattr(d.eth, 'gateway', None),
-                'mac_address': getattr(d.eth, 'mac_address', None),
-                'mtu': getattr(d.eth, 'mtu', None),  # int
-                'netmask': getattr(d.eth, 'netmask', None),
+                'enabled': g(d, 'enabled', False),  # bool
+                'interface_type': g(d, 'interface_type', None),
+                'services': opt_sorted(g(d, 'services', None)),  # liststr?
+                'speed': g(d, 'speed', None),  # int?
+                'fc': g(g(d, 'fc', None), 'name', None),
+                'address': g(g(d, 'eth', None), 'address', None),
+                'gateway': g(g(d, 'eth', None), 'gateway', None),
+                'mac_address': g(g(d, 'eth', None), 'mac_address', None),
+                'mtu': g(g(d, 'eth', None), 'mtu', None),  # int
+                'netmask': g(g(d, 'eth', None), 'netmask', None),
             } for d in data]
         }
