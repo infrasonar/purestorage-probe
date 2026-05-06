@@ -1,2 +1,2 @@
-py-pure-client==1.83.1
-libprobe==2.0.2
+py-pure-client==1.87.0
+libprobe==2.0.6

@@ -30,5 +30,5 @@ if __name__ == '__main__':
         CheckVolumes,
     )
 
-    probe = Probe("purestorage", version, checks)
+    probe = Probe("purestorage", version, checks, loggers=('pypureclient',))
     probe.start()
